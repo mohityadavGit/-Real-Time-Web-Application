@@ -8,6 +8,8 @@ import Cookies from "js-cookie"; // Import js-cookie
 import toast from "react-hot-toast";
 
 function Login() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [showPassword, setShowPassword] = useState(false);
   const [Authuser, setAuthuser] = useContext(Authcontext);
   const {
@@ -25,7 +27,7 @@ function Login() {
     try {
       // Login request
       const response = await axios.post(
-        "http://localhost:3001/login",
+        `${apiUrl}/login`,
         loginData,
         { withCredentials: true } // Ensure cookies are sent
       );

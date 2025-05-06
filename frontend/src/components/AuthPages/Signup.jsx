@@ -11,6 +11,7 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [Authuser, setAuthuser] = useContext(Authcontext);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const {
     register,
@@ -27,13 +28,9 @@ function Signup() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/signup",
-        signupData,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/signup`, signupData, {
+        withCredentials: true,
+      });
       toast.success("Signup successful ✅");
       console.log("Server Response:", JSON.stringify(response.data));
 

@@ -7,6 +7,7 @@ import AllUserscontext from "./AllUserscontext.jsx";
 const useGetMessage = () => {
   // ✅ Context se loading aur setLoading mil raha
   const { loading, setLoading } = useContext(AllUserscontext);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // ✅ Zustand se states nikal rahe hain
   const selectedConversation = useConvesessionStore(
@@ -32,7 +33,7 @@ const useGetMessage = () => {
           : selectedConversation;
       console.log(receiverId, "ye hai jis id ko  maine abhi clik kiya hai ");
       const res = await axios.get(
-        `http://localhost:3001/get/${receiverId}`, // userId here
+        `${apiUrl}/get/${receiverId}`, // userId here
         {
           withCredentials: true,
         }

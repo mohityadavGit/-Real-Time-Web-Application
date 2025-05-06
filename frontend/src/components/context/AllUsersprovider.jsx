@@ -6,11 +6,12 @@ function AllUsersprovider({ children }) {
   const [AllUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/getAllUsers", {
+        const response = await axios.get(`${apiUrl}/getAllUsers`, {
           withCredentials: "include",
         });
         setAllUsers(response.data);

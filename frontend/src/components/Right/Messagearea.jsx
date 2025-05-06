@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
-import Messages from "./Messages";
+import Messages from "./Messages.jsx";
 import Loading from "../Loading.jsx";
-import Authcontext from "../context/Authcontext"; // Import Authcontext to check if the user is authenticated
+import Authcontext from "../context/Authcontext.jsx"; // Import Authcontext to check if the user is authenticated
 import useGetMessage from "../context/useGetMessage.js";
 import useGetSocketMessage from "../context/useGetSocketMessage.js";
 function Messagearea() {

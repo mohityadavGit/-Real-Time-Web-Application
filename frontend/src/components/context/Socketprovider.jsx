@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import io from "socket.io-client";
+import React, { useEffect, useState, useContext } from "react";
+import { io } from "socket.io-client";
 
 import Socketcontext from "./Socketcontext";
 import Authcontext from "./Authcontext";
@@ -11,28 +10,33 @@ function Socketprovider({ children }) {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    console.log("Attempting to connect to socket...");
-    console.log("Authuser: ", Authuser);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     if (Authuser && Authuser.id) {
-      const socket = io("http://localhost:3001", {
-        query: { userId: Authuser.id }, // ✅ correct structure
+      console.log("Attempting to connect to socket with user:", Authuser.id);
+
+      const socket = io(apiUrl, {
+        query: { userId: Authuser.id },
+        withCredentials: true, // optionally needed
       });
 
       socket.on("connect", () => {
         console.log("✅ Socket connected:", socket.id);
       });
 
-      setSocket(socket);
-
       socket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
 
-      return () => socket.close();
+      setSocket(socket);
+
+      return () => {
+        socket.disconnect(); // better than .close() in socket.io
+        setSocket(null);
+      };
     } else {
       if (Socket) {
-        Socket.close();
+        Socket.disconnect();
         setSocket(null);
       }
     }

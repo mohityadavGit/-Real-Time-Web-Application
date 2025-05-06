@@ -7,6 +7,7 @@ import AllUserscontext from "./AllUserscontext.jsx";
 const useSendMessage = () => {
   // ✅ Context se loading aur setLoading mil raha
   const { loading, setLoading } = useContext(AllUserscontext);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // ✅ Zustand se states nikal rahe hain
   const selectedConversation = useConvesessionStore(
@@ -28,7 +29,7 @@ const useSendMessage = () => {
           : selectedConversation;
 
       const res = await axios.post(
-        `http://localhost:3001/send/${receiverId}`, // ✅ yeh tera endpoint
+        `${apiUrl}/send/${receiverId}`, // ✅ yeh tera endpoint
         {
           message: messageContent,
         },

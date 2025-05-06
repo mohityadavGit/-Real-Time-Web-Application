@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 function Logout() {
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/logout",
+        `${apiUrl}/logout`,
         {},
         {
           withCredentials: true,
@@ -17,7 +18,7 @@ function Logout() {
       );
 
       // ✅ Redirect to login page
-      // navigate("/login");
+      navigate("/login");
 
       // 🔃 Optional: Full reload if you want to clear app state
       window.location.reload();
