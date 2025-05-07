@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Right/Profile";
-import Sendmsg from "./Right/SendMsg";
+import Sendmsg from "./Right/Sendmsg";
 import Messagearea from "./Right/Messagearea";
 function Right() {
   return (
