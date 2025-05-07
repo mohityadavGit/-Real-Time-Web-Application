@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // ✅ Allow frontend address
+    origin: process.env.CLIENT_URL, // Using CLIENT_URL from .env
     methods: ["GET", "POST"],
     credentials: true, // Allows cookies and authorization headers
   },
@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   if (userId) {
     users[userId] = socket.id;
-    console.log("Hello ", users);
+    console.log("Connected users: ", users);
   }
 
   // Emit online users to all connected clients

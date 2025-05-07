@@ -17,16 +17,10 @@ const MONGO_URI = process.env.MONGODB_URI;
 app.use(cookieParser());
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173", // Frontend URL
-//     credentials: true, // Allow cookies
-//   })
-// );
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
+    origin: process.env.CLIENT_URL, // Allow frontend URL from .env file
+    credentials: true, // Allow cookies and authorization headers
   })
 );
 
