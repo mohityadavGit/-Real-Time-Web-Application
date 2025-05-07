@@ -17,10 +17,21 @@ const MONGO_URI = process.env.MONGODB_URI;
 app.use(cookieParser());
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://real-time-web-application-pppx.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // Allow frontend URL from .env file
-    credentials: true, // Allow cookies and authorization headers
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 
