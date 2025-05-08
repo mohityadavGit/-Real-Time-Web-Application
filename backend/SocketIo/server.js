@@ -8,23 +8,22 @@ const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
       const allowedOrigins = [
-        "http://localhost:5173", // Localhost
-        "https://real-time-web-application-pppx.vercel.app", // First deployed app
-        "https://real-time-web-application-ijjy.vercel.app", // Second deployed app (new addition)
+        "http://localhost:5173",
+        "https://real-time-web-application-pppx.vercel.app",
+        "https://real-time-web-application-ijjy.vercel.app",
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Accept request
+        callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS")); // Reject request
+        callback(new Error("Not allowed by CORS"));
       }
     },
     methods: ["GET", "POST"],
-    credentials: true, // Allow credentials (cookies)
+    credentials: true,
   },
 });
 
-// Add user connection handling (already present in your code)
 const users = {};
 
 io.on("connection", (socket) => {
@@ -44,4 +43,10 @@ io.on("connection", (socket) => {
   });
 });
 
-export { app, io, server };
+// ✅ Add this function
+const getReceiverSocketId = (receiverId) => {
+  return users[receiverId];
+};
+
+// ✅ Export it
+export { app, io, server, getReceiverSocketId };

@@ -10,7 +10,6 @@ import { app, server } from "./SocketIo/server.js"; // Import socket server (if 
 // Load environment variables
 dotenv.config({ path: "./.env" });
 
-const app = express();
 const port = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGODB_URI;
 
