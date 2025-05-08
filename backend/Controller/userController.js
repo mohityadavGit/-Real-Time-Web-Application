@@ -82,6 +82,7 @@ const login = async (req, res) => {
         fullname: existingUser.name,
         email: existingUser.email,
       },
+      token, // ✅ Add this line
     });
   } catch (error) {
     console.error("Login error:", error);
