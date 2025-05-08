@@ -8,30 +8,25 @@ const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
       const allowedOrigins = [
-        "http://localhost:5173",
-        "https://real-time-web-application-pppx.vercel.app", // existing
-        "https://real-time-web-application-ijjy.vercel.app", // ✅ Add this line
+        "http://localhost:5173", // Localhost
+        "https://real-time-web-application-pppx.vercel.app", // First deployed app
+        "https://real-time-web-application-ijjy.vercel.app", // Second deployed app (new addition)
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
+        callback(null, true); // Accept request
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error("Not allowed by CORS")); // Reject request
       }
     },
     methods: ["GET", "POST"],
-    credentials: true,
+    credentials: true, // Allow credentials (cookies)
   },
 });
 
-// Realtime message code goes here
-export const getReceiverSocketId = (receiverId) => {
-  return users[receiverId];
-};
-
+// Add user connection handling (already present in your code)
 const users = {};
 
-// Used to listen for events on the server side.
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
   const userId = socket.handshake.query.userId;
@@ -40,10 +35,8 @@ io.on("connection", (socket) => {
     console.log("Connected users: ", users);
   }
 
-  // Emit online users to all connected clients
   io.emit("getOnlineUsers", Object.keys(users));
 
-  // Handle user disconnection
   socket.on("disconnect", () => {
     console.log("a user disconnected", socket.id);
     delete users[userId];

@@ -12,7 +12,7 @@ function AllUsersprovider({ children }) {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(`${apiUrl}/getAllUsers`, {
-          withCredentials: "include",
+          withCredentials: true,
         });
         setAllUsers(response.data);
       } catch (err) {

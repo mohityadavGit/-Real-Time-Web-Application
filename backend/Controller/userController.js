@@ -70,8 +70,8 @@ const login = async (req, res) => {
     // 🍪 Send token in a cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // ✅ Allow on localhost (non-HTTPS)
-      sameSite: "Lax", // ✅ Safer for local dev
+      secure: true, // ✅ Allow on localhost (non-HTTPS)
+      sameSite: "None", // ✅ Safer for local dev
       maxAge: 24 * 60 * 60 * 1000,
     });
 

@@ -1,44 +1,41 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import userRouter from "./Router/userRouter.js";
-import messageRouter from "./Router/messageRouter.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { app, server } from "./SocketIo/server.js"; // Import app and server
+import userRouter from "./Router/userRouter.js";
+import messageRouter from "./Router/messageRouter.js";
+import { app, server } from "./SocketIo/server.js"; // Import socket server (if in separate file)
 
-// Load env variables
+// Load environment variables
 dotenv.config({ path: "./.env" });
 
+const app = express();
 const port = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGODB_URI;
 
-// Middleware
-app.use(cookieParser());
-app.use(express.json());
-
+// Add CORS and cookie-parser middleware
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://real-time-web-application-pppx.vercel.app", // existing
-  "https://real-time-web-application-ijjy.vercel.app", // ✅ Add this line
+  "https://real-time-web-application-pppx.vercel.app",
+  "https://real-time-web-application-ijjy.vercel.app",
 ];
 
+// Enable CORS for Express API routes
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
+    origin: allowedOrigins,
+    credentials: true, // Enable cookies in cross-origin requests
   })
 );
 
-app.use(express.urlencoded({ extended: true }));
+// Middleware to parse cookies
+app.use(cookieParser());
 
-// Routes
+// Middleware to parse JSON data
+app.use(express.json());
+
+// Use user and message routers for API routes
 app.use(userRouter);
 app.use(messageRouter);
 
@@ -47,7 +44,7 @@ app.get("/", (req, res) => {
   res.json({
     message: "API is working",
     db: MONGO_URI,
-    info: "System is up and running", // Adjust test info as necessary
+    info: "System is up and running",
   });
 });
 
