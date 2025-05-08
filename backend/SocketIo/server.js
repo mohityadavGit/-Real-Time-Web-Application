@@ -9,8 +9,10 @@ const io = new Server(server, {
     origin: function (origin, callback) {
       const allowedOrigins = [
         "http://localhost:5173",
-        "https://real-time-web-application-pppx.vercel.app",
+        "https://real-time-web-application-pppx.vercel.app", // existing
+        "https://real-time-web-application-ijjy.vercel.app", // ✅ Add this line
       ];
+
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {

@@ -19,7 +19,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://real-time-web-application-pppx.vercel.app",
+  "https://real-time-web-application-pppx.vercel.app", // existing
+  "https://real-time-web-application-ijjy.vercel.app", // ✅ Add this line
 ];
 
 app.use(
