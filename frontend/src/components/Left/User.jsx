@@ -3,7 +3,7 @@ import useConvesessionStore from "../zustand/useConvesessionStore";
 import Socketcontext from "../context/Socketcontext";
 
 function User({ user }) {
-  const { Socket, onlineUsers } = useContext(Socketcontext);
+  const { onlineUsers } = useContext(Socketcontext);
   const isOnline = onlineUsers.includes(user._id);
 
   const setSelectedConversation = useConvesessionStore(
@@ -17,33 +17,31 @@ function User({ user }) {
 
   return (
     <div
-      className={`transition-colors duration-300 cursor-pointer rounded-md p-2 
-        ${isSelected ? "bg-slate-800" : ""}`}
       onClick={() => setSelectedConversation(user)}
+      className={`p-3 rounded-md cursor-pointer transition-colors duration-200 hover:bg-[#0f766e] ${
+        isSelected ? "bg-[#134e4a]" : "bg-[#1e293b]"
+      }`}
     >
       <div className="flex items-center gap-4">
-        {/* Avatar */}
-        <div className={`avatar`}>
+        <div className="avatar">
           <div
-            className={`w-16 rounded-full ring ${
-              isOnline ? "ring-green-400" : "ring-gray-400"
-            } ring-offset-base-100 ring-offset-2`}
+            className={`w-12 rounded-full ring ${
+              isOnline ? "ring-green-400" : "ring-gray-500"
+            } ring-offset-2`}
           >
             <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+                user.name
+              )}`}
               alt="User Avatar"
             />
           </div>
         </div>
-
-        {/* Info */}
-        <div>
-          <h1 className="font-semibold text-lg text-gray-200 hover:text-green-500">
-            {user.name}
-          </h1>
-          <span className="text-gray-400 text-sm block">{user.email}</span>
+        <div className="flex flex-col">
+          <span className="text-white font-medium">{user.name}</span>
+          <span className="text-gray-400 text-xs">{user.email}</span>
           <span
-            className={`text-xs font-medium ${
+            className={`text-xs font-semibold ${
               isOnline ? "text-green-400" : "text-gray-500"
             }`}
           >

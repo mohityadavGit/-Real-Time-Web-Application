@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaSearch } from "react-icons/fa";
 import AllUserscontext from "../context/AllUserscontext";
 import useConvesessionStore from "../zustand/useConvesessionStore";
-import { useContext } from "react";
 import toast from "react-hot-toast";
+
 function Search() {
   const [search, setSearch] = useState("");
-  const { AllUsers, loading, error } = useContext(AllUserscontext);
-  console.log("AllUsers", AllUsers);
+  const { AllUsers } = useContext(AllUserscontext);
+  const selectedConversation = useConvesessionStore((state) => state.selectedConversation);
+  const setSelectedConversation = useConvesessionStore((state) => state.setSelectedConversation);
 
-  const selectedConversation = useConvesessionStore(
-    (state) => state.selectedConversation
-  );
-  const setSelectedConversation = useConvesessionStore(
-    (state) => state.setSelectedConversation
-  );
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!search) return;
+
     const conversation = AllUsers.data.find((user) =>
       user.name?.toLowerCase().includes(search.toLowerCase())
     );
@@ -31,25 +27,23 @@ function Search() {
   };
 
   return (
-    <div className="bg-black text-white w-full h-[10vh] flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full flex items-center justify-center"
-      >
-        <div className="flex items-center gap-2 w-full py-4 px-2">
-          <label className=" border-[1px] ml-2 input  border-gray-700 flex items-center gap-2 ">
-            <input
-              type="text"
-              className="grow font-bold focus:outline-none"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </label>
-          <button className="bg-slate-600 p-2 rounded-full hover:bg-black transition duration-200 space-x-3 text-2xl text-green-500">
-            <FaSearch />
-          </button>
+    <div className="bg-gradient-to-r from-[#0f766e] via-[#134e4a] to-[#082f49] text-white w-full h-[10vh] flex items-center px-4">
+      <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+        <div className="flex-grow relative">
+          <input
+            type="text"
+            className="w-full bg-[#0f172a] text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-teal-400 placeholder:text-gray-400 font-medium"
+            placeholder="Search users..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
+        <button
+          type="submit"
+          className="bg-teal-600 hover:bg-teal-700 text-white p-3 rounded-full text-xl transition"
+        >
+          <FaSearch />
+        </button>
       </form>
     </div>
   );

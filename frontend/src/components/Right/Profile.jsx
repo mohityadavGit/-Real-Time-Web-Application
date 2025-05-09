@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import image from "/image.png";
 import useConvesessionStore from "../zustand/useConvesessionStore";
 import Socketcontext from "../context/Socketcontext";
 
@@ -10,43 +9,42 @@ function Profile() {
   );
 
   const getOnlineUsersStatus = (userId) => {
-    return onlineUsers.includes(userId) ? "Online" : "Offline"; // ✅ fixed spelling
+    return onlineUsers.includes(userId) ? "Online" : "Offline";
   };
 
-  console.log("is user ko dikhana hai bhai", selectedConversation);
-
-  // 🔄 Fallback UI when no conversation is selected
   if (!selectedConversation) {
     return (
-      <div className="bg-gradient-to-br from-[#3b0764] via-[#9333ea] to-[#f43f5e] w-full h-[15vh] flex flex-col items-center justify-center text-center shadow-inner rounded-md px-4 animate-fade-in">
-        <div className="text-4xl mb-2 text-pink-100">👤</div>
-        <p className="text-xl font-semibold text-white tracking-wide">
+      <div className="bg-gradient-to-br from-[#1F1D36] via-[#3F3351] to-[#FF4C98] w-full h-[15vh] flex flex-col items-center justify-center text-center shadow-inner rounded-md px-4 animate-fade-in">
+        <div className="text-4xl mb-2 text-[#F7F5F2]">👤</div>
+        <p className="text-lg font-semibold text-[#F7F5F2] tracking-wide">
           Please select a{" "}
-          <span className="text-pink-200 font-bold italic">user to chat</span>{" "}
-          and start the conversation.
+          <span className="text-[#70E3B0] font-bold italic">user to chat</span>
         </p>
       </div>
     );
   }
 
-  // ✅ UI when a conversation is selected
   return (
     <>
-      <div className="bg-gradient-to-r from-[#4c1d95] via-[#7e22ce] to-[#db2777] text-white w-full h-[15vh] flex flex-col items-center justify-center shadow-lg rounded-md px-4 transition-all duration-500 ease-in-out">
+      <div className="bg-gradient-to-r from-[#1F1D36] via-[#3F3351] to-[#FF4C98] text-white w-full h-[15vh] flex flex-col items-center justify-center shadow-lg rounded-md px-4">
         <div className="avatar mb-2">
-          <div className="w-20 rounded-full ring ring-white ring-offset-2 ring-offset-pink-300 shadow-xl hover:scale-105 transition-transform duration-300 mt-2">
-            <img src={image} alt="User Avatar" />
+          <div className="w-20 rounded-full ring ring-[#70E3B0] ring-offset-2 hover:scale-105 transition-transform duration-300">
+            <img
+              src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+                selectedConversation.name
+              )}`}
+              alt="User Avatar"
+            />
           </div>
         </div>
       </div>
 
       <div className="absolute top-6 right-16">
-        <p className="text-xl font-bold tracking-wide capitalize drop-shadow-sm text-white">
+        <p className="text-xl font-bold capitalize drop-shadow text-white">
           {selectedConversation.name}
         </p>
-        <p className="text-sm font-medium text-green-300 animate-pulse">
-          {getOnlineUsersStatus(selectedConversation._id)}{" "}
-          {/* or .id depending on your data */}
+        <p className="text-sm font-medium text-[#70E3B0] animate-pulse">
+          {getOnlineUsersStatus(selectedConversation._id)}
         </p>
       </div>
     </>

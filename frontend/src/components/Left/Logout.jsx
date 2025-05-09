@@ -9,18 +9,8 @@ function Logout() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        `${apiUrl}/logout`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      // ✅ Redirect to login page
+      await axios.post(`${apiUrl}/logout`, {}, { withCredentials: true });
       navigate("/login");
-
-      // 🔃 Optional: Full reload if you want to clear app state
       window.location.reload();
     } catch (error) {
       console.error("Logout failed:", error);
@@ -28,15 +18,15 @@ function Logout() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-[#1e1e1e] via-gray-900 to-black text-white w-full h-[10vh] flex items-center justify-center space-x-3 shadow-inner">
+    <div className="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f766e] text-white w-full h-[10vh] flex items-center justify-between px-6 shadow-inner">
+      <span className="text-lg font-bold text-teal-200">Connected</span>
       <button
         onClick={handleLogout}
-        className="bg-slate-700 p-3 rounded-full hover:bg-red-700 transition duration-200 text-2xl text-green-400"
-        title="Logout App unauthorized ho jaenge"
+        className="bg-slate-800 p-3 rounded-full hover:bg-red-700 transition duration-200 text-2xl text-teal-400"
+        title="Logout"
       >
         <BiLogOutCircle />
       </button>
-      <span className="text-sm font-bold text-green-200">Logout</span>
     </div>
   );
 }
