@@ -52,9 +52,18 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-6">
       <div className="backdrop-blur-xl bg-white/10 shadow-lg rounded-3xl p-10 w-full max-w-sm border border-white/30">
-        <h2 className="text-3xl font-bold text-white text-center mb-6 drop-shadow-md">
+        {/* <h2 className="text-3xl font-bold text-white text-center mb-6 drop-shadow-md">
           Welcome Back 👋
-        </h2>
+        </h2> */}
+        {/* Branding Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-bold text-[#663300]">
+            Welcome to <span className="text-[#a0522d]">Sarathi Sandesh</span>
+          </h1>
+          <p className="text-sm text-[#7a5e3c] italic mt-2">
+            Dialogue. Guidance. Clarity.
+          </p>
+        </div>
         <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
           <div>

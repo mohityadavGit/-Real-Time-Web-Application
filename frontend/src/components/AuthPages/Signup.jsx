@@ -44,8 +44,17 @@ function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#4f46e5] via-[#ec4899] to-[#f97316] p-4">
       <div className="backdrop-blur-xl bg-white/10 shadow-xl rounded-3xl p-10 w-full max-w-md border border-white/30">
-        <h2 className="text-3xl font-bold text-blue-900 text-center mb-6 drop-shadow-lg">
+        <h2 className="text-3xl font-bold text-[#311d0b] text-center mb-6 drop-shadow-lg">
           Create an Account
+          {/* Branding Header */}
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-[#663300]">
+              Welcome to <span className="text-[#a0522d]">Sarathi Sandesh</span>
+            </h1>
+            <p className="text-sm text-[#7a5e3c] italic mt-2">
+              Dialogue. Guidance. Clarity.
+            </p>
+          </div>
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
